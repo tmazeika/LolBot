@@ -3,6 +3,22 @@ LolBot
 
 The official LolBot repository. Join us in #lol768fanclub on EsperNet! All hail the mighty @lol768.
 
+How To Use
+==========
+
+**First time use:**
+
+1. Start 'er up.
+2. A 'config.properties' file will be generated.
+3. Kill 'er (Ctrl+C on Linux).
+4. Change the config to what you'd like.
+5. Start up again.
+
+**Commands:**
+
+* **exit** | **quit** | **part** - Parts the bot from the server and shuts down the app.
+ 
+
 Contributing
 ============
 
