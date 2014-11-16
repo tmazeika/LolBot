@@ -1,7 +1,7 @@
 LolBot
 ======
 
-The official LolBot repository. Join us in #lol768fanclub on EsperNet! All hail the mighty @lol768.
+The official lol768 fact faxer. Join us in #lol768fanclub on EsperNet! All hail the mighty @lol768.
 
 How To Use
 ==========
