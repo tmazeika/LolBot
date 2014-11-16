@@ -37,7 +37,6 @@ public class LolBot implements LolBotController {
         try
         {
             jar = new File(LolBot.class.getProtectionDomain().getCodeSource().getLocation().toURI()).getParentFile();
-            System.out.println(jar.getAbsolutePath());
         }
         catch (URISyntaxException ex)
         {
