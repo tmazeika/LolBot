@@ -114,11 +114,11 @@ public class LolBot implements LolBotController {
         final Configuration.Builder confBuilder = new Configuration.Builder()
                 .addListener(new IRCListener(faxDater))
                 .setAutoNickChange(true)
-                .setLogin(prop("login")) // login
+                .setLogin(prop("login", prop("nick"))) // login, default to nick
                 .setVersion("LolBot v1.0 - http://goo.gl/NFp4Ww") // version
                 .setServer(
                         prop("server"), // server
-                        Integer.parseInt(prop("port", "6666"))) // port
+                        Integer.parseInt(prop("port", "6666"))) // port, default to 6666
                 .setName(prop("nick")); // nick
 
         if (isPropSet("password")) confBuilder.setServerPassword(prop("password")); // server password
@@ -190,7 +190,14 @@ public class LolBot implements LolBotController {
 
     private String prop(String key, String defaultValue)
     {
-        return props.getProperty(key, defaultValue);
+        final String value = props.getProperty(key, defaultValue);
+
+        if (value.isEmpty())
+        {
+            return defaultValue;
+        }
+
+        return value;
     }
 
     private String prop(String key)
