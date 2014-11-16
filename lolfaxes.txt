@@ -92,7 +92,7 @@ lol768 can program a space probe in 10 lines in binary
 lol768 can use T.class
 lol768 can reassign final fields
 lol768 can hack into the NSA's database while playing (and winning) ping-pong
-lol768 can respond to "ping" with "pong" in less than 13.97 nanoseconds
+lol768 can respond to "ping" with "pong" in less than 7.68 nanoseconds
 lol768 sleeps
 lol768 never encounters IOExceptions
 lol768's code is always bug-free
@@ -114,3 +114,6 @@ lol768^2 = lol589824
 lol768 can see ultraviolet light
 lol768 keeps the sun's radiation from killing us
 lol768 prefers sweets over candy
+lol768 knows all the things about all the things
+lol768 can read a terabyte of data in 8.67 nanoseconds
+lol768 can translate a gigabyte long string of binary to UTF-8 in 14ms
