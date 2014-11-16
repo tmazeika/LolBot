@@ -1,5 +1,6 @@
 package com.bionicrm.lolbot;
 
+import com.google.common.io.Resources;
 import org.apache.commons.io.IOUtils;
 import org.pircbotx.Configuration;
 import org.pircbotx.PircBotX;
@@ -12,6 +13,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.MalformedURLException;
+import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.Properties;
@@ -21,7 +23,7 @@ import java.util.logging.Logger;
 public class LolBot implements LolBotController {
 
     private static final Logger LOGGER = Logger.getGlobal();
-    private static final File JAR;
+    private static final File JAR_DIR;
 
     private Properties props;
     private PircBotX bot;
@@ -34,14 +36,15 @@ public class LolBot implements LolBotController {
 
         try
         {
-            jar = new File(LolBot.class.getProtectionDomain().getCodeSource().getLocation().toURI());
+            jar = new File(LolBot.class.getProtectionDomain().getCodeSource().getLocation().toURI()).getParentFile();
+            System.out.println(jar.getAbsolutePath());
         }
         catch (URISyntaxException ex)
         {
             LOGGER.log(Level.SEVERE, ex.getMessage(), ex);
         }
 
-        JAR = jar;
+        JAR_DIR = jar;
     }
 
     public static void main(String[] args) throws Exception
@@ -65,7 +68,7 @@ public class LolBot implements LolBotController {
     {
         final String propsFileName = "config.properties";
 
-        final File propsFile = new File(JAR, propsFileName);
+        final File propsFile = new File(JAR_DIR, propsFileName);
 
         // copy the config.properties file from resources if one does not exist
         if ( ! propsFile.exists())
@@ -74,7 +77,7 @@ public class LolBot implements LolBotController {
             propsFile.createNewFile();
 
             // get the input stream of the file in resources
-            final InputStream resPropsIn = getClass().getResourceAsStream(propsFileName);
+            final InputStream resPropsIn = Resources.getResource(propsFileName).openStream();
 
             // get the output stream of the newly created file
             final OutputStream propsOut = new FileOutputStream(propsFile);
