@@ -114,7 +114,7 @@ public class LolBot implements LolBotController {
         final Configuration.Builder confBuilder = new Configuration.Builder()
                 .addListener(new IRCListener(faxDater))
                 .setAutoNickChange(true)
-                .setLogin("lolbot")
+                .setLogin("LolBot")
                 .setServer(
                         prop("server"), // server
                         Integer.parseInt(prop("port", "6666"))) // port
