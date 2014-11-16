@@ -10,7 +10,7 @@
     <version>1.0</version>
 
     <build>
-        <finalName>LolBot-${version}</finalName>
+        <finalName>LolBot-v${version}</finalName>
 
         <resources>
             <resource>
