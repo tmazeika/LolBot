@@ -1,9 +1,10 @@
 *.class
+*-pom.xml
 
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
 
-# Package Files #
+# Package Files
 *.jar
 *.war
 *.ear
@@ -13,3 +14,5 @@ hs_err_pid*
 
 # IDE
 .idea/
+target/
+*.iml
