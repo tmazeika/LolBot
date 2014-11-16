@@ -5,6 +5,7 @@ import org.apache.commons.io.IOUtils;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -95,6 +96,17 @@ public class FaxesUpdater implements FaxesHolder, FaxesUpdaterController {
                     {
                         // read all lines (faxes) from the specified LolFaxes URL
                         faxes = IOUtils.readLines(faxesUrl.openStream());
+
+                        final Iterator<String> itr = faxes.iterator();
+
+                        // get rid of blank faxes
+                        while (itr.hasNext())
+                        {
+                            if (itr.next().trim().isEmpty())
+                            {
+                                itr.remove();
+                            }
+                        }
                     }
 
                     // stop if we stopped updating in the middle of reading the faxes
