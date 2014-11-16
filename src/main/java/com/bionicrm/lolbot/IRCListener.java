@@ -24,15 +24,15 @@ public class IRCListener extends ListenerAdapter {
         if ( ! event.getMessage().startsWith(":lolfax")) return;
 
         // get all of our LolFaxes
-        List<String> faxes = faxesHolder.getFaxes();
+        final List<String> faxes = faxesHolder.getFaxes();
 
         // return if we don't have any LolFaxes
         if (faxes.isEmpty()) return;
 
         // pick a random int from 0 to lines.size()
-        int randInt = new Random().nextInt(faxes.size());
+        final int randInt = new Random().nextInt(faxes.size());
 
-        String fax = faxes.get(randInt);
+        final String fax = faxes.get(randInt);
 
         // "<username>: [lolfax] <selected LolFax>"
         event.respond("[lolfax] " + fax);
