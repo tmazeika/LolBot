@@ -70,7 +70,7 @@ public class InputListener implements InputListenerController {
                 // stop if we stopped listening
                 if ( ! listening) break;
 
-                List<String> splitLine = new ArrayList<>();
+                final List<String> splitLine = new ArrayList<>();
 
                 final Matcher cmdMatcher = CMD_PATTERN.matcher(line);
 
