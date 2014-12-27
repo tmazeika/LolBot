@@ -119,7 +119,6 @@ lol768 can read a terabyte of data in 8.67 nanoseconds
 lol768 can translate a gigabyte long string of binary to UTF-8 in 14ms
 lol768 does not make system calls. System calls call lol768
 lol768 does not debug. He stares at the stack trace until it fixes the problem
-lol768 makes Kim Jong Un jealous
 lol768 doesn't push commits. Git commits to lol768
 御lol768様さん御先生は日本語の全てを知っていますよ
 lol768 is the secret source of Google's indexing power
