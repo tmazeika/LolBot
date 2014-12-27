@@ -13,7 +13,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.MalformedURLException;
-import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.Properties;
@@ -95,8 +94,9 @@ public class LolBot implements LolBotController {
     public void createFaxesUpdater() throws MalformedURLException
     {
         final URL faxesUrl = new URL(prop("lolfaxes-url"));
+        final int updatePeriod = Integer.parseInt(prop("lolfaxes-update-period"));
 
-        faxDater = new FaxesUpdater(faxesUrl);
+        faxDater = new FaxesUpdater(faxesUrl, updatePeriod);
 
         faxDater.startUpdating();
     }

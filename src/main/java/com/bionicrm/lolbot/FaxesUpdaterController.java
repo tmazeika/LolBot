@@ -8,6 +8,11 @@ public interface FaxesUpdaterController {
     void startUpdating();
 
     /**
+     * Immediately updates even if currently sleeping.
+     */
+    void updateNow();
+
+    /**
      * Stops updating every 6 hours for new LolFaxes.
      */
     void stopUpdating();

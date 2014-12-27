@@ -23,10 +23,21 @@ public class CommandHandler implements CommandHandlerInterface {
         {
             case "exit":
             case "quit":
+            case "stop":
             case "part":
                 LOGGER.info("Exiting...");
 
                 botCont.exit();
+
+                LOGGER.info("Goodbye!");
+                break;
+
+            case "update":
+                LOGGER.info("Updating lolfaxes...");
+
+                updaterCont.updateNow();
+
+                LOGGER.info("Updated lolfaxes!");
                 break;
 
             default:

@@ -1,5 +1,6 @@
 package com.bionicrm.lolbot;
 
+import org.pircbotx.Colors;
 import org.pircbotx.hooks.ListenerAdapter;
 import org.pircbotx.hooks.events.ConnectEvent;
 import org.pircbotx.hooks.events.MessageEvent;
@@ -21,7 +22,7 @@ public class IRCListener extends ListenerAdapter {
     public void onMessage(MessageEvent event)
     {
         // check if it is the LolFax command
-        if ( ! event.getMessage().startsWith(":lolfax")) return;
+        if ( ! event.getMessage().trim().equalsIgnoreCase(":lolfax")) return;
 
         // get all of our LolFaxes
         final List<String> faxes = faxesHolder.getFaxes();
@@ -34,8 +35,10 @@ public class IRCListener extends ListenerAdapter {
 
         final String fax = faxes.get(randInt);
 
-        // "<username>: [lolfax] <selected LolFax>"
-        event.respond("[lolfax] " + fax);
+        // "[LOLFAX] <selected LolFax>"
+        event.getChannel().send().message(Colors.DARK_GREEN + "[" +
+                Colors.GREEN + "LOLFAX" + Colors.NORMAL + Colors.DARK_GREEN +
+                "] " + Colors.NORMAL + Colors.BOLD + fax);
     }
 
     @Override

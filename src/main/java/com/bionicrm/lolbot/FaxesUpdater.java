@@ -13,18 +13,17 @@ import java.util.logging.Logger;
 public class FaxesUpdater implements FaxesHolder, FaxesUpdaterController {
 
     private final URL faxesUrl;
-    private final Object faxesLock;
+    private final int updatePeriod;
+    private final Object faxesLock = new Object();
 
-    private List<String> faxes;
+    private List<String> faxes = new ArrayList<>();
     private boolean updating;
     private Thread updater;
 
-    public FaxesUpdater(URL faxesUrl)
+    public FaxesUpdater(URL faxesUrl, int updatePeriod)
     {
         this.faxesUrl = faxesUrl;
-
-        faxesLock = new Object();
-        faxes = new ArrayList<>();
+        this.updatePeriod = updatePeriod;
     }
 
     @Override
@@ -39,6 +38,12 @@ public class FaxesUpdater implements FaxesHolder, FaxesUpdaterController {
         updater = new Thread(new Updater());
 
         updater.start();
+    }
+
+    @Override
+    public void updateNow()
+    {
+        updater.interrupt();
     }
 
     @Override
@@ -112,8 +117,8 @@ public class FaxesUpdater implements FaxesHolder, FaxesUpdaterController {
                     // stop if we stopped updating in the middle of reading the faxes
                     if ( ! updating) break;
 
-                    // 6 hours
-                    Thread.sleep(1000 * 60 * 60 * 6);
+                    // millis -> seconds -> minutes (updatePeriod)
+                    Thread.sleep(1000 * 60 * updatePeriod);
                 }
                 catch (IOException ex)
                 {
