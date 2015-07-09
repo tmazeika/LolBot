@@ -17,7 +17,7 @@ How To Use
 **Commands:**
 
 * **exit** | **quit** | **stop** | **part** - Parts the bot from the server and shuts down the app.
-* **update** - Immediately updates LolFaxes (and resets 6 hour (default) timer).
+* **update** - Immediately updates LolFaxes and resets the 6 hour (default) timer.
 
 Contributing
 ============
