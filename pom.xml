@@ -21,26 +21,23 @@
         <plugins>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>2.3.2</version>
+                <version>3.3</version>
                 <configuration>
-                    <source>1.7</source>
-                    <target>1.7</target>
+                    <source>1.8</source>
+                    <target>1.8</target>
                 </configuration>
             </plugin>
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
-                <version>2.3</version>
+                <version>2.4.1</version>
                 <executions>
                     <execution>
                         <phase>package</phase>
                         <goals>
                             <goal>shade</goal>
                         </goals>
-                        <configuration>
-                            <minimizeJar>true</minimizeJar>
-                        </configuration>
                     </execution>
                 </executions>
             </plugin>
@@ -60,12 +57,22 @@
         </plugins>
     </build>
 
+    <repositories>
+        <repository>
+            <id>kitteh</id>
+            <url>http://repo.kitteh.org/content/groups/public</url>
+        </repository>
+    </repositories>
+
     <dependencies>
-        <!-- PircBotX -->
+        <!-- KICL -->
         <dependency>
-            <groupId>org.pircbotx</groupId>
-            <artifactId>pircbotx</artifactId>
-            <version>2.0.1</version>
+            <groupId>org.kitteh.irc</groupId>
+            <artifactId>client-lib</artifactId>
+            <version>0.3.4</version>
+            <type>jar</type>
+            <optional>true</optional>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>

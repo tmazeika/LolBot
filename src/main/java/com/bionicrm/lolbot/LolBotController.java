@@ -1,6 +1,6 @@
 package com.bionicrm.lolbot;
 
-import org.pircbotx.PircBotX;
+import org.kitteh.irc.client.library.Client;
 
 public interface LolBotController {
 
@@ -10,10 +10,10 @@ public interface LolBotController {
     void exit();
 
     /**
-     * Gets the PircBotX bot.
+     * Gets the KICL bot.
      *
      * @return the bot
      */
-    PircBotX getBot();
+    Client getBot();
 
 }
