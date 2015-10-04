@@ -2,9 +2,8 @@ package com.bionicrm.lolbot;
 
 import com.google.common.io.Resources;
 import org.apache.commons.io.IOUtils;
-import org.pircbotx.Configuration;
-import org.pircbotx.PircBotX;
-import org.pircbotx.exception.IrcException;
+import org.kitteh.irc.client.library.Client;
+import org.kitteh.irc.client.library.ClientBuilder;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -25,7 +24,7 @@ public class LolBot implements LolBotController {
     private static final File JAR_DIR;
 
     private Properties props;
-    private PircBotX bot;
+    private Client bot;
     private FaxesUpdater faxDater;
     private InputListener inputListener;
 
@@ -58,8 +57,6 @@ public class LolBot implements LolBotController {
         lolBot.createInputListener(cmdHandler);
 
         lolBot.createBot();
-
-        lolBot.startBot();
     }
 
     public void loadPropsFile() throws IOException
@@ -110,54 +107,25 @@ public class LolBot implements LolBotController {
 
     public void createBot()
     {
-        // noinspection unchecked
-        final Configuration.Builder confBuilder = new Configuration.Builder()
-                .addListener(new IRCListener(faxDater))
-                .setAutoNickChange(true)
-                .setLogin(prop("login", prop("nick"))) // login, default to nick
-                .setVersion("LolBot v1.0 - http://goo.gl/NFp4Ww") // version
-                .setServer(
-                        prop("server"), // server
-                        Integer.parseInt(prop("port", "6666"))) // port, default to 6666
-                .setName(prop("nick")); // nick
+        final ClientBuilder builder = Client.builder()
+                .user(prop("login", prop("nick"))) // login, default to nick
+                .server(prop("server")) // server
+                .server(Integer.parseInt(prop("port", "6666"))) // port, default to 6666
+                .nick(prop("nick")); // nick
 
-        if (isPropSet("password")) confBuilder.setServerPassword(prop("password")); // server password
+        if (isPropSet("password")) builder.serverPassword(prop("password")); // server password
 
+
+
+        bot = builder.build();
+        bot.getEventManager().registerEventListener(new IRCListener(faxDater));
         if (isPropSet("channels"))
         {
             for (String c : prop("channels").split(","))
             {
-                confBuilder.addAutoJoinChannel("#" + c); // channels
+                bot.addChannel("#" + c); // channels
             }
         }
-
-        final Configuration conf = confBuilder.buildConfiguration();
-
-        // noinspection unchecked
-        bot = new PircBotX(conf);
-    }
-
-    public void startBot()
-    {
-        new Thread(new Runnable() {
-
-            @Override
-            public void run() {
-                LOGGER.info("Connecting...");
-
-                try
-                {
-                    bot.startBot();
-                }
-                catch (IOException | IrcException ex)
-                {
-                    LOGGER.log(Level.SEVERE, ex.getMessage(), ex);
-
-                    exit();
-                }
-            }
-
-        }).start();
     }
 
     @Override
@@ -167,18 +135,12 @@ public class LolBot implements LolBotController {
 
         faxDater.stopUpdating();
 
-        if (bot.isConnected())
-        {
-            bot.sendIRC().quitServer("Shutting down...");
-        }
-        else
-        {
-            System.exit(0);
-        }
+        bot.shutdown("Shutting down...");
+        System.exit(0);
     }
 
     @Override
-    public PircBotX getBot()
+    public Client getBot()
     {
         return bot;
     }

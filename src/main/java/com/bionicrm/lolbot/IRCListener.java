@@ -1,15 +1,16 @@
 package com.bionicrm.lolbot;
 
-import org.pircbotx.Colors;
-import org.pircbotx.hooks.ListenerAdapter;
-import org.pircbotx.hooks.events.ConnectEvent;
-import org.pircbotx.hooks.events.MessageEvent;
+import org.kitteh.irc.client.library.IRCFormat;
+import org.kitteh.irc.client.library.event.channel.ChannelMessageEvent;
+import org.kitteh.irc.client.library.event.client.ClientConnectedEvent;
+import org.kitteh.irc.client.library.event.user.PrivateCTCPQueryEvent;
+import org.kitteh.irc.lib.net.engio.mbassy.listener.Handler;
 
 import java.util.List;
 import java.util.Random;
 import java.util.logging.Logger;
 
-public class IRCListener extends ListenerAdapter {
+public class IRCListener {
 
     private final FaxesHolder faxesHolder;
 
@@ -18,8 +19,8 @@ public class IRCListener extends ListenerAdapter {
         this.faxesHolder = faxesHolder;
     }
 
-    @Override
-    public void onMessage(MessageEvent event)
+    @Handler
+    public void onMessage(ChannelMessageEvent event)
     {
         // check if it is the LolFax command
         if ( ! event.getMessage().trim().equalsIgnoreCase(":lolfax")) return;
@@ -36,15 +37,24 @@ public class IRCListener extends ListenerAdapter {
         final String fax = faxes.get(randInt);
 
         // "[LOLFAX] <selected LolFax>"
-        event.getChannel().send().message(Colors.DARK_GREEN + "[" +
-                Colors.GREEN + "LOLFAX" + Colors.NORMAL + Colors.DARK_GREEN +
-                "] " + Colors.NORMAL + Colors.BOLD + fax);
+        event.getChannel().sendMessage(IRCFormat.DARK_GREEN + "[" +
+                IRCFormat.GREEN + "LOLFAX" + IRCFormat.RESET + IRCFormat.DARK_GREEN +
+                "] " + IRCFormat.RESET + IRCFormat.BOLD + fax);
     }
 
-    @Override
-    public void onConnect(ConnectEvent event)
+    @Handler
+    public void onConnect(ClientConnectedEvent event)
     {
         Logger.getGlobal().info("Connected!");
+    }
+
+    @Handler
+    public void onVersion(PrivateCTCPQueryEvent event)
+    {
+        if (event.getMessage().equalsIgnoreCase("VERSION"))
+        {
+            event.setReply("VERSION LolBot v1.0 - http://goo.gl/NFp4Ww"); // version
+        }
     }
 
 }
