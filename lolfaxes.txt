@@ -153,3 +153,4 @@ lol768 extends Object
 lol768 can instantiate abstract classes
 When lol768 says, "It's interesting", no one knows if that means it's good or bad
 >lol768 >likes >to >quote >you >when >you >say >something >stupid
+lol768 is typing these messages
